@@ -1,4 +1,4 @@
-local now, now_if_args, later = Config.now, Config.now_if_args, Config.later
+local now, later = Config.now, Config.later
 
 -- Step one ===================================================================
 
@@ -45,6 +45,7 @@ now(function() require("mini.tabline").setup() end)
 
 -- Step two ===================================================================
 -- Load now if Neovim is started like `nvim -- path/to/file`, otherwise - later.
+-- e.g now_if_args(...)
 
 -- Step three ===================================================================
 
