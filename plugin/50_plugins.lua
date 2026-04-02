@@ -159,3 +159,11 @@ now(function()
   }
   vim.cmd "color kanso" -- TODO: Replace w/ astroui setup
 end)
+
+-- Keymaps XP =================================================================
+later(function()
+  add { "gh:folke/which-key.nvim" }
+  require("which-key").setup {
+    preset = "modern",
+  }
+end)
