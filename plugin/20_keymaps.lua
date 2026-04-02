@@ -7,19 +7,7 @@ local nmap = function(lhs, rhs, desc, opts) map("n", lhs, rhs, vim.tbl_extend("f
 local xmap = function(lhs, rhs, desc, opts) map("n", lhs, rhs, vim.tbl_extend("force", { desc = desc }, opts or {})) end
 local vmap = function(lhs, rhs, desc, opts) map("v", lhs, rhs, vim.tbl_extend("force", { desc = desc }, opts or {})) end
 
-nmap("[p", '<Cmd>exe "iput! " . v:register<CR>', "Paste Above")
-nmap("]p", '<Cmd>exe "iput "  . v:register<CR>', "Paste Below")
 nmap("0", "^", "First non-blank character")
-
--- Splits
-nmap("<C-H>", "<C-w>h", "Move to left split")
-nmap("<C-J>", "<C-w>j", "Move to below split")
-nmap("<C-K>", "<C-w>k", "Move to above split")
-nmap("<C-L>", "<C-w>l", "Move to right split")
-nmap("<M-Up>", "<Cmd>resize -2<CR>", "Resize split up")
-nmap("<M-Down>", "<Cmd>resize +2<CR>", "Resize split down")
-nmap("<M-Left>", "<Cmd>vertical resize -2<CR>", "Resize split left")
-nmap("<M-Right>", "<Cmd>vertical resize +2<CR>", "Resize split right")
 
 nmap("j", "v:count == 0 ? 'gj' : 'j'", "Move cursor down", { expr = true, silent = true })
 xmap("j", "v:count == 0 ? 'gj' : 'j'", "Move cursor down", { expr = true, silent = true })
@@ -46,18 +34,19 @@ nmap("gl", function() vim.diagnostic.open_float() end, "Hover diagnostics")
 -- Diagnostics
 
 -- Tabs
-nmap("]t", function() vim.cmd.tabnext() end, "Next tab")
-nmap("[t", function() vim.cmd.tabprevious() end, "Previous tab")
+-- FIXME: Remove and focus on mini.basics
+-- nmap("]t", function() vim.cmd.tabnext() end, "Next tab")
+-- nmap("[t", function() vim.cmd.tabprevious() end, "Previous tab")
 
 -- List management
-nmap("]q", vim.cmd.cnext, "Next quickfix")
-nmap("[q", vim.cmd.cprev, "Previous quickfix")
-nmap("]Q", vim.cmd.clast, "End quickfix")
-nmap("[Q", vim.cmd.cfirst, "Beginning quickfix")
-nmap("]l", vim.cmd.lnext, "Next loclist")
-nmap("[l", vim.cmd.lprev, "Previous loclist")
-nmap("]L", vim.cmd.llast, "End loclist")
-nmap("[L", vim.cmd.lfirst, "Beginning loclist")
+-- nmap("]q", vim.cmd.cnext, "Next quickfix")
+-- nmap("[q", vim.cmd.cprev, "Previous quickfix")
+-- nmap("]Q", vim.cmd.clast, "End quickfix")
+-- nmap("[Q", vim.cmd.cfirst, "Beginning quickfix")
+-- nmap("]l", vim.cmd.lnext, "Next loclist")
+-- nmap("[l", vim.cmd.lprev, "Previous loclist")
+-- nmap("]L", vim.cmd.llast, "End loclist")
+-- nmap("[L", vim.cmd.lfirst, "Beginning loclist")
 
 -- Leader mappings ============================================================
 Config.leader_groups = {

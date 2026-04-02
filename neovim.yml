@@ -6,3 +6,11 @@ globals:
     any: true
   Snacks:
     any: true
+  MiniIcons:
+    any: true
+  MiniCompletion:
+    any: true
+  MiniFiles:
+    any: true
+  MiniKeymap:
+    any: true
