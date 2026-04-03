@@ -53,6 +53,13 @@ now_if_args(function()
     "tinymist",
     "vtsls",
   }
+
+  vim.fn.sign_define {
+    { name = "DiagnosticSignInfo", text = "󰋼", texthl = "DiagnosticInfo" },
+    { name = "DiagnosticSignHint", text = "󰌵", texthl = "DiagnosticHint" },
+    { name = "DiagnosticSignWarn", text = "", texthl = "DiagnosticWarn" },
+    { name = "DiagnosticSignError", text = "", texthl = "DiagnosticError" },
+  }
 end)
 
 -- Formatting =================================================================
@@ -145,7 +152,11 @@ now(function()
   add {
     "gh:webhooked/kanso.nvim",
     "gh:AstroNvim/astroui",
+    "gh:MunifTanjim/nui.nvim",
+    "gh:folke/noice.nvim",
   }
+
+  require("noice").setup(require "configs.noice")
   require("kanso").setup {
     background = {
       dark = "mist",
