@@ -100,6 +100,7 @@ vim.o.cursorlineopt = "screenline,number"
 vim.o.fillchars = "eob: ,fold: ,diff:╱"
 vim.o.listchars = "eol:↲,tab: ,trail:•,nbsp:␣,extends:»,precedes:«"
 
+-- Folding. Defaults to indent. Treesitter and LSP used based on availability.
 vim.o.foldenable = true
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99

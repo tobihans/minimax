@@ -19,19 +19,26 @@ now_if_args(function()
     multiline_threshold = 10,
   }
 
-  local is_lang_available = function(lang) return vim.list_contains(require("nvim-treesitter").get_available(), lang) end
+  local treesitter = require "nvim-treesitter"
+  local is_lang_available = function(lang) return vim.list_contains(treesitter.get_available(), lang) end
   local isnt_installed = function(lang) return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0 end
+  local start = function(bufnr)
+    local win = vim.api.nvim_get_current_win()
+    vim.treesitter.start(bufnr)
+    vim.wo[win][0].foldmethod, vim.wo[win][0].foldexpr = "expr", "v:lua.vim.treesitter.foldexpr()"
+  end
   Config.new_autocmd("FileType", "", function(ev)
     local lang = vim.treesitter.language.get_lang(vim.bo[ev.buf].filetype)
     if not lang then return end
 
+    -- Auto install missing parsers
     if isnt_installed(lang) and is_lang_available(lang) then
-      require("nvim-treesitter").install(lang):await(function() vim.treesitter.start(ev.buf) end)
+      treesitter.install(lang):await(function() start(ev.buf) end)
       return
     end
 
-    if is_lang_available(lang) then vim.treesitter.start(ev.buf) end
-  end, "Auto install & start tree-sitter")
+    if is_lang_available(lang) then start(ev.buf) end
+  end, "Treesitter")
 end)
 
 -- Language servers ===========================================================
