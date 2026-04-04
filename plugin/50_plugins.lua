@@ -25,6 +25,7 @@ now_if_args(function()
   local start = function(bufnr)
     local win = vim.api.nvim_get_current_win()
     vim.treesitter.start(bufnr)
+    -- Folding
     vim.wo[win][0].foldmethod, vim.wo[win][0].foldexpr = "expr", "v:lua.vim.treesitter.foldexpr()"
   end
   Config.new_autocmd("FileType", "", function(ev)
@@ -67,6 +68,15 @@ now_if_args(function()
     { name = "DiagnosticSignWarn", text = "", texthl = "DiagnosticWarn" },
     { name = "DiagnosticSignError", text = "", texthl = "DiagnosticError" },
   }
+
+  Config.new_autocmd("LspAttach", "", function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    -- Folding
+    if client and client:supports_method "textDocument/foldingRange" then
+      local win = vim.api.nvim_get_current_win()
+      vim.wo[win][0].foldmethod, vim.wo[win][0].foldexpr = "expr", "v:lua.vim.lsp.foldexpr()"
+    end
+  end)
 end)
 
 -- Formatting =================================================================
