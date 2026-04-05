@@ -74,6 +74,21 @@ nmap_leader("Sc", misc.nvim_config, "Neovim Config")
 nmap_leader("xq", "<Cmd>copen<CR>", "Quickfix List")
 nmap_leader("xl", "<Cmd>lopen<CR>", "Location List")
 
+-- Session management
+nmap_leader("Sl", function() require("resession").load "Last Session" end, "Load last session")
+nmap_leader(
+  "SS",
+  function() require("resession").save(vim.fn.getcwd(), { dir = "dirsession" }) end,
+  "Save this dirsession"
+)
+nmap_leader("SD", function() require("resession").delete(nil, { dir = "dirsession" }) end, "Delete a dirsession")
+nmap_leader("SF", function() require("resession").load(nil, { dir = "dirsession" }) end, "Load a dirsession")
+nmap_leader(
+  "S.",
+  function() require("resession").load(vim.fn.getcwd(), { dir = "dirsession" }) end,
+  "Load current dirsession"
+)
+
 -- LocalLeader mappings ============================================================
 Config.localleader_groups = {}
 local nmap_localleader = function(suffix, rhs, desc) map("n", "<LocalLeader>" .. suffix, rhs, { desc = desc }) end

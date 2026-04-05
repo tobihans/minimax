@@ -18,6 +18,7 @@ now_if_args(function()
     line_numbers = true,
     multiline_threshold = 10,
   }
+  require("nvim-treesitter-textobjects").setup { select = { lookahead = true } }
 
   local treesitter = require "nvim-treesitter"
   local is_lang_available = function(lang) return vim.list_contains(treesitter.get_available(), lang) end
@@ -206,4 +207,36 @@ later(function()
   require("which-key").setup {
     preset = "modern",
   }
+end)
+-- Session ====================================================================
+later(function()
+  add {
+    "gh:stevearc/resession.nvim",
+  }
+
+  require("resession").setup {
+    buf_filter = function(bufnr) return require("buffer").is_restorable(bufnr) end,
+    tab_buf_filter = function(tabpage, bufnr) return vim.tbl_contains(vim.t[tabpage].bufs, bufnr) end,
+    extensions = {
+      dap = {},
+      quickfix = {},
+      scope = {},
+      aerial = {},
+    },
+  }
+
+  Config.new_autocmd("VimLeavePre", "", function()
+    local save = require("resession").save
+    save("Last Session", { notify = false })
+    save(vim.fn.getcwd(), { dir = "dirsession", notify = false })
+  end, "Save session on close")
+end)
+-- Utils ======================================================================
+later(function()
+  add {
+    "gh:tiagovla/scope.nvim",
+    "gh:mg979/vim-visual-multi",
+  }
+
+  require("scope").setup()
 end)
