@@ -182,6 +182,7 @@ now(function()
   add {
     "gh:webhooked/kanso.nvim",
     "gh:AstroNvim/astroui",
+    "gh:nvim-lua/plenary.nvim",
     "gh:MunifTanjim/nui.nvim",
     "gh:folke/noice.nvim",
   }
@@ -230,6 +231,14 @@ later(function()
     save("Last Session", { notify = false })
     save(vim.fn.getcwd(), { dir = "dirsession", notify = false })
   end, "Save session on close")
+end)
+-- File Tree ==================================================================
+later(function()
+  add {
+    { src = "https://github.com/nvim-neo-tree/neo-tree.nvim", version = vim.version.range "3" },
+  }
+
+  require("neo-tree").setup(require "configs.neo-tree")
 end)
 -- Utils ======================================================================
 later(function()
