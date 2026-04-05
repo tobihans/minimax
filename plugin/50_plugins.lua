@@ -161,8 +161,20 @@ later(function()
   Config.new_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, "", function() lint.try_lint() end, "Lint")
 end)
 
--- Snippets ===================================================================
-later(function() add { "gh:rafamadriz/friendly-snippets" } end)
+-- Completion & Snippets ===================================================================
+later(function()
+  add {
+    "gh:rafamadriz/friendly-snippets",
+    "gh:supermaven-inc/supermaven-nvim",
+    "gh:kristijanhusak/vim-dadbod-completion",
+    { src = "gh:saghen/blink.cmp", version = vim.version.range "1.*" },
+    { src = "gh:saghen/blink.compat", version = vim.version.range "2.*" },
+  }
+
+  require("supermaven-nvim").setup { disable_inline_completion = true, disable_keymaps = true }
+  require("blink.compat").setup {}
+  require("blink.cmp").setup(require "configs.blink")
+end)
 
 -- User Interface =============================================================
 now(function()
