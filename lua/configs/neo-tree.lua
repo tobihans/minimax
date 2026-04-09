@@ -34,6 +34,26 @@ return {
         state.commands.open(state)
       end
     end,
+    find_files_in_dir = function(state)
+      local node = state.tree:get_node()
+      local path = node.type == "file" and node:get_parent_id() or node:get_id()
+      Snacks.picker.files { cwd = path }
+    end,
+    find_all_files_in_dir = function(state)
+      local node = state.tree:get_node()
+      local path = node.type == "file" and node:get_parent_id() or node:get_id()
+      Snacks.picker.files { cwd = path, hidden = true, ignored = true }
+    end,
+    find_words_in_dir = function(state)
+      local node = state.tree:get_node()
+      local path = node.type == "file" and node:get_parent_id() or node:get_id()
+      Snacks.picker.grep { cwd = path }
+    end,
+    find_all_words_in_dir = function(state)
+      local node = state.tree:get_node()
+      local path = node.type == "file" and node:get_parent_id() or node:get_id()
+      Snacks.picker.grep { cwd = path, hidden = true, ignored = true }
+    end,
     copy_selector = function(state)
       local node = state.tree:get_node()
       local filepath = node:get_id()
@@ -88,6 +108,12 @@ return {
       mappings = {
         ["d"] = "trash",
         ["D"] = "delete",
+        f = { "show_help", nowait = false, config = { title = "Find Files", prefix_key = "f" } },
+        ["f/"] = "filter_on_submit",
+        ff = "find_files_in_dir",
+        fF = "find_all_files_in_dir",
+        fw = vim.fn.executable "rg" == 1 and "find_words_in_dir" or nil,
+        fW = vim.fn.executable "rg" == 1 and "find_all_words_in_dir" or nil,
       },
     },
     commands = {

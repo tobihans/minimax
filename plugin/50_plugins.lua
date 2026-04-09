@@ -56,6 +56,7 @@ now_if_args(function()
     "expert",
     "gopls",
     "html",
+    "lua_ls",
     "nushell",
     "pyrefly",
     "rust_analyzer",
