@@ -50,6 +50,9 @@ vim.opt.shellquote = ""
 vim.opt.shellpipe =
   "| complete | update stderr { ansi strip } | tee { get stderr | save --force --raw %s } | into record"
 
+_G.qftf = require("quickfix").textfunc
+vim.o.qftf = "{info -> v:lua._G.qftf(info)}"
+
 -- UI =========================================================================
 vim.o.background = "dark"
 vim.o.breakindent = true
