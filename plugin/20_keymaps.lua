@@ -141,6 +141,8 @@ end
 
 local python = vim.fn.executable "python" == 1 and "python" or vim.fn.executable "python3" == 1 and "python3"
 if python then nmap_leader("tp", function() Snacks.terminal.toggle("mise x -- " .. python) end, "Python REPL") end
+-- function gh_action() Snacks.terminal.toggle "glab pipeline ci view" end
+-- function glab_ci() Snacks.terminal.toggle "gh run watch --exit-status" end
 
 -- Snacks =====================================================================
 -- Dashboard

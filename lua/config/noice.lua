@@ -31,9 +31,7 @@ return {
       scrollbar = not vim.g.neovide,
     },
   },
-  ---@type NoiceRouteConfig[]
   routes = {
-    ---@diagnostic disable-next-line: missing-fields
     {
       filter = {
         any = {

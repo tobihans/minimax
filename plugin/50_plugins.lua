@@ -220,6 +220,7 @@ later(function()
       aerial = {},
     },
   }
+  require("resession").add_hook("post_load", function() vim.schedule(require("misc").load_exrc) end)
 
   Config.new_autocmd("VimLeavePre", nil, function()
     local save = require("resession").save
