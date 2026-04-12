@@ -87,6 +87,10 @@
       "rev": "05adc14db5c2d0eae064765101dd5e9c594c7851",
       "src": "gh:stevearc/resession.nvim"
     },
+    "schemastore.nvim": {
+      "rev": "b2e84d00db4d5432f471d58898e796b478f075a7",
+      "src": "gh:b0o/schemastore.nvim"
+    },
     "scope.nvim": {
       "rev": "228aabdb1b9cc74f0c0ccec88e79873857236e49",
       "src": "gh:tiagovla/scope.nvim"
