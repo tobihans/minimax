@@ -3,7 +3,6 @@ Config.now(function()
     dashboard = {
       preset = {
         header = os.date "%a, %d %B %Y %I:%M %p",
-        ---@type snacks.dashboard.Item[]
         keys = {
           { icon = " ", key = "n", desc = "New File", action = "<leader>n" },
           { icon = "󰮗 ", key = "f", desc = "Find Files", action = "<leader>ff" },
@@ -12,8 +11,7 @@ Config.now(function()
           { icon = " ", key = "c", desc = "Config", action = "<leader>Sc" },
           { icon = " ", key = "s", desc = "Restore Session", action = "<leader>SF" },
           { icon = " ", key = "l", desc = "Last Session", action = "<leader>Sl" },
-          { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-          { icon = "󰏗 ", key = "M", desc = "Mason", action = ":Mason" },
+          { icon = "󰒲 ", key = "p", desc = "Packages", action = function() vim.pack.update() end },
           { icon = " ", key = "q", desc = "Quit", action = "<leader>Q" },
         },
       },

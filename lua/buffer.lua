@@ -21,4 +21,18 @@ function M.is_restorable(bufnr)
   return vim.bo[bufnr].buflisted
 end
 
+--- Close a given buffer
+---@param bufnr? integer The buffer to close or the current buffer if not provided
+---@param force? boolean Whether or not to foce close the buffers or confirm changes (default: false)
+function M.close(bufnr, force)
+  if not bufnr or bufnr == 0 then bufnr = vim.api.nvim_get_current_buf() end
+  if M.is_valid(bufnr) then
+    require("snacks").bufdelete { buf = bufnr, force = force }
+    -- or require("mini.bufremove").delete { buf = bufnr, force = force }
+  end
+  -- fallback
+  local buftype = vim.bo[bufnr].buftype
+  vim.cmd(("silent! %s %d"):format((force or buftype == "terminal") and "bdelete!" or "confirm bdelete", bufnr))
+end
+
 return M

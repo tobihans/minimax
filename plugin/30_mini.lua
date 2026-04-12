@@ -71,7 +71,7 @@ later(function() require("mini.comment").setup() end)
 -- mini.cursorword -> Autohighlight word under cursor.
 later(function()
   local minicursorword_disable = function()
-    if #vim.fn.expand "<cword>" <= 2 then
+    if #vim.fn.expand "<cword>" <= 3 then
       vim.b.minicursorword_disable = true
     elseif vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] ~= nil then
       vim.b.minicursorword_disable = vim.iter(vim.treesitter.get_captures_at_cursor()):any(

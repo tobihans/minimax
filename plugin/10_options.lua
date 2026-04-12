@@ -10,6 +10,25 @@ vim.g.loaded_perl_provider = 0
 vim.g.autoformat_enabled = true
 vim.g.lsp_handlers_enabled = false
 
+-- Vim Visual Multi (multi-cursor)
+vim.g.VM_leader = "<Localleader>v"
+vim.g.VM_default_mappings = 1
+vim.g.VM_mouse_mappings = 1
+vim.g.VM_quit_after_leaving_insert_mode = 0
+vim.g.VM_insert_special_keys = { "c-v", "c-a", "c-e" }
+vim.g.VM_reindent_filetypes = { "python", "yaml" }
+
+vim.g.VM_maps = {
+  ["Find Under"] = "<C-n>",
+  ["Find Subword Under"] = "<C-n>",
+  ["Select Cursor Down"] = "<C-M-j>",
+  ["Select Cursor Up"] = "<C-M-k>",
+  ["Reselect Last"] = "<C-M-.>",
+  -- Enable undo/redo experimental feature
+  ["Undo"] = "u",
+  ["Redo"] = "<C-r>",
+}
+
 vim.o.mouse = "a"
 vim.o.mousescroll = "ver:25,hor:6"
 vim.o.switchbuf = "useopen,usetab,uselast"
@@ -52,6 +71,8 @@ vim.opt.shellpipe =
 
 _G.qftf = require("quickfix").textfunc
 vim.o.qftf = "{info -> v:lua._G.qftf(info)}"
+
+vim.o.sessionoptions = "buffers,tabpages,globals"
 
 -- UI =========================================================================
 vim.o.background = "dark"
@@ -166,7 +187,11 @@ Config.new_autocmd(
 -- a more conservative display while still being useful.
 -- See `:h vim.diagnostic` and `:h vim.diagnostic.config()`.
 local diagnostic_opts = {
-  signs = { priority = 9999, severity = { min = "WARN", max = "ERROR" } },
+  signs = {
+    priority = 9999,
+    severity = { min = "WARN", max = "ERROR" },
+    text = { " ", " ", " ", " " },
+  },
   underline = { severity = { min = "HINT", max = "ERROR" } },
   virtual_text = false,
   virtual_lines = {

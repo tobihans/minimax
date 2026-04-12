@@ -29,7 +29,7 @@ now_if_args(function()
     -- Folding
     vim.wo[win][0].foldmethod, vim.wo[win][0].foldexpr = "expr", "v:lua.vim.treesitter.foldexpr()"
   end
-  Config.new_autocmd("FileType", "", function(ev)
+  Config.new_autocmd("FileType", nil, function(ev)
     local lang = vim.treesitter.language.get_lang(vim.bo[ev.buf].filetype)
     if not lang then return end
 
@@ -71,7 +71,7 @@ now_if_args(function()
     { name = "DiagnosticSignError", text = "", texthl = "DiagnosticError" },
   }
 
-  Config.new_autocmd("LspAttach", "", function(ev)
+  Config.new_autocmd("LspAttach", nil, function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     -- Folding
     if client and client:supports_method "textDocument/foldingRange" then
@@ -160,7 +160,7 @@ later(function()
     yaml = { "yamllint" },
   }
 
-  Config.new_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, "", function() lint.try_lint() end, "Lint")
+  Config.new_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, nil, function() lint.try_lint() end, "Lint")
 end)
 
 -- Completion & Snippets ===================================================================
@@ -168,27 +168,25 @@ later(function()
   add {
     "gh:rafamadriz/friendly-snippets",
     "gh:supermaven-inc/supermaven-nvim",
-    "gh:kristijanhusak/vim-dadbod-completion",
     { src = "gh:saghen/blink.cmp", version = vim.version.range "1.*" },
     { src = "gh:saghen/blink.compat", version = vim.version.range "2.*" },
   }
 
   require("supermaven-nvim").setup { disable_inline_completion = true, disable_keymaps = true }
   require("blink.compat").setup {}
-  require("blink.cmp").setup(require "configs.blink")
+  require("blink.cmp").setup(require "config.blink")
 end)
 
 -- User Interface =============================================================
 now(function()
   add {
     "gh:webhooked/kanso.nvim",
-    "gh:AstroNvim/astroui",
     "gh:nvim-lua/plenary.nvim",
     "gh:MunifTanjim/nui.nvim",
     "gh:folke/noice.nvim",
   }
 
-  require("noice").setup(require "configs.noice")
+  require("noice").setup(require "config.noice")
   require("kanso").setup {
     background = {
       dark = "mist",
@@ -200,21 +198,17 @@ now(function()
       }
     end,
   }
-  vim.cmd "color kanso" -- TODO: Replace w/ astroui setup
+  vim.cmd "color kanso"
 end)
 
 -- Keymaps XP =================================================================
 later(function()
   add { "gh:folke/which-key.nvim" }
-  require("which-key").setup {
-    preset = "modern",
-  }
+  require("which-key").setup { preset = "modern" }
 end)
 -- Session ====================================================================
 later(function()
-  add {
-    "gh:stevearc/resession.nvim",
-  }
+  add { "gh:stevearc/resession.nvim" }
 
   require("resession").setup {
     buf_filter = function(bufnr) return require("buffer").is_restorable(bufnr) end,
@@ -227,7 +221,7 @@ later(function()
     },
   }
 
-  Config.new_autocmd("VimLeavePre", "", function()
+  Config.new_autocmd("VimLeavePre", nil, function()
     local save = require("resession").save
     save("Last Session", { notify = false })
     save(vim.fn.getcwd(), { dir = "dirsession", notify = false })
@@ -238,15 +232,74 @@ later(function()
   add {
     { src = "https://github.com/nvim-neo-tree/neo-tree.nvim", version = vim.version.range "3" },
   }
-
-  require("neo-tree").setup(require "configs.neo-tree")
+  require("neo-tree").setup(require "config.neo-tree")
 end)
 -- Utils ======================================================================
-later(function()
+now(function()
   add {
     "gh:tiagovla/scope.nvim",
     "gh:mg979/vim-visual-multi",
   }
 
   require("scope").setup()
+end)
+-- QuickFix ======================================================================
+later(function()
+  add { "gh:kevinhwang91/nvim-bqf" }
+  require("bqf").setup {
+    preview = {
+      border = { "━", "━", "━", " ", "━", "━", "━", " " },
+    },
+    func_map = {
+      fzffilter = "",
+    },
+  }
+end)
+-- Languages support ================================================================
+later(function()
+  add {
+    "gh:lewis6991/gitsigns.nvim",
+  }
+
+  local git_sign = "▎"
+  require("gitsigns").setup {
+    signs = {
+      add = { text = git_sign },
+      change = { text = git_sign },
+      delete = { text = git_sign },
+      topdelete = { text = git_sign },
+      changedelete = { text = git_sign },
+      untracked = { text = git_sign },
+    },
+    signs_staged = {
+      add = { text = git_sign },
+      change = { text = git_sign },
+      delete = { text = git_sign },
+      topdelete = { text = git_sign },
+      changedelete = { text = git_sign },
+      untracked = { text = git_sign },
+    },
+  }
+end)
+-- Languages support ================================================================
+later(function() add { "gh:tpope/vim-rails" } end)
+-- Datatabase supoort ===============================================================
+later(
+  function()
+    add {
+      "gh:tpope/vim-dotenv",
+      "gh:tpope/vim-dadbod",
+      "gh:kristijanhusak/vim-dadbod-ui",
+      "gh:kristijanhusak/vim-dadbod-completion",
+    }
+  end
+)
+-- Other plugins ====================================================================
+later(function()
+  add {
+    "gh:NMAC427/guess-indent.nvim",
+    "gh:akinsho/git-conflict.nvim",
+  }
+  require("guess-indent").setup()
+  require("git-conflict").setup()
 end)

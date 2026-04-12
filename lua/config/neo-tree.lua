@@ -1,6 +1,4 @@
-local TRASH_CMD = vim.uv.os_uname().sysname == "Darwin"
-  and { "trash", "-s" }
-  or { "trash-put", "-f" }
+local TRASH_CMD = vim.uv.os_uname().sysname == "Darwin" and { "trash", "-s" } or { "trash-put", "-f" }
 
 return {
   sources = { "filesystem" },

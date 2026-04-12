@@ -1,3 +1,11 @@
 {
-  "format.enable": false
+  "format.enable": false,
+    "diagnostics.globals": [
+        "Snacks",
+        "MiniIcons",
+        "MiniKeymap"
+    ],
+    "diagnostics.disable": [
+        "different-requires"
+    ]
 }
