@@ -1,8 +1,9 @@
+vim.loader.enable()
+
 -- Define config table to be able to pass data between scripts
 -- It is a global variable which can be use both as `_G.Config` and `Config`
 -- selene: allow(global_usage)
 _G.Config = {}
-
 -- Load meta plugins powering most of this config.
 vim.pack.add { "gh:nvim-mini/mini.nvim", "gh:folke/snacks.nvim" }
 
