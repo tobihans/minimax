@@ -283,7 +283,12 @@ later(function()
   }
 end)
 -- Languages support ================================================================
-later(function() add { "gh:tpope/vim-rails" } end)
+later(function()
+  add {
+    "gh:tpope/vim-rails",
+    "gh:b0o/schemastore.nvim", -- TODO: Configure in LSPs
+  }
+end)
 -- Datatabase supoort ===============================================================
 later(
   function()
