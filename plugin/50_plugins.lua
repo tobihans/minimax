@@ -59,6 +59,7 @@ now_if_args(function()
     "lua_ls",
     "nushell",
     "pyrefly",
+    "ruby_lsp",
     "rust_analyzer",
     "tinymist",
     "vtsls",
@@ -217,7 +218,6 @@ later(function()
       dap = {},
       quickfix = {},
       scope = {},
-      aerial = {},
     },
   }
   require("resession").add_hook("post_load", function() vim.schedule(require("misc").load_exrc) end)
