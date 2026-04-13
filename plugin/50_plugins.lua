@@ -65,13 +65,6 @@ now_if_args(function()
     "vtsls",
   }
 
-  vim.fn.sign_define {
-    { name = "DiagnosticSignInfo", text = "󰋼", texthl = "DiagnosticInfo" },
-    { name = "DiagnosticSignHint", text = "󰌵", texthl = "DiagnosticHint" },
-    { name = "DiagnosticSignWarn", text = "", texthl = "DiagnosticWarn" },
-    { name = "DiagnosticSignError", text = "", texthl = "DiagnosticError" },
-  }
-
   Config.new_autocmd("LspAttach", nil, function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     -- Folding
