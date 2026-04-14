@@ -16,6 +16,8 @@ now(
     }
   end
 )
+-- mini.extras -> Extra useful functionalities.
+now(function() require("mini.extra").setup {} end)
 
 -- mini.icons -> Icon provider.
 now(function()
@@ -52,9 +54,17 @@ now(function() require("mini.tabline").setup() end)
 -- mini.ai -> Extend and create a/i textobjects, like `:h a(`, `:h a'`, and more).
 later(function()
   local ai = require "mini.ai"
+  local gen_ai_spec = require("mini.extra").gen_ai_spec
   ai.setup {
     n_lines = 75,
     search_method = "cover_or_nearest",
+    custom_textobjects = {
+      B = gen_ai_spec.buffer(),
+      D = gen_ai_spec.diagnostic(),
+      I = gen_ai_spec.indent(),
+      L = gen_ai_spec.line(),
+      N = gen_ai_spec.number(),
+    },
   }
 end)
 
@@ -104,29 +114,23 @@ end)
 -- - `:h MiniDiff.gen_source` - available built-in sources
 -- later(function() require("mini.diff").setup() end)
 
--- Highlight patterns in text. Like `TODO`/`NOTE` or color hex codes.
--- Example usage:
--- - `:Pick hipatterns` - pick among all highlighted patterns
---
--- See also:
--- - `:h MiniHipatterns-examples` - examples of common setups
--- later(function()
---   local hipatterns = require "mini.hipatterns"
---   local hi_words = MiniExtra.gen_highlighter.words
---   hipatterns.setup {
---     highlighters = {
---       -- Highlight a fixed set of common words. Will be highlighted in any place,
---       -- not like "only in comments".
---       fixme = hi_words({ "FIXME", "Fixme", "fixme" }, "MiniHipatternsFixme"),
---       hack = hi_words({ "HACK", "Hack", "hack" }, "MiniHipatternsHack"),
---       todo = hi_words({ "TODO", "Todo", "todo" }, "MiniHipatternsTodo"),
---       note = hi_words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
---
---       -- Highlight hex color string (#aabbcc) with that color as a background
---       hex_color = hipatterns.gen_highlighter.hex_color(),
---     },
---   }
--- end)
+-- mini.hipatterns -> Highlight patterns in text.
+later(function()
+  local hipatterns = require "mini.hipatterns"
+  local hi_words = MiniExtra.gen_highlighter.words
+  hipatterns.setup {
+    highlighters = {
+      -- Highlight a fixed set of common words. Will be highlighted in any place,
+      -- not like "only in comments".
+      fixme = hi_words({ "FIXME", "Fixme", "fixme" }, "MiniHipatternsFixme"),
+      hack = hi_words({ "HACK", "Hack", "hack" }, "MiniHipatternsHack"),
+      todo = hi_words({ "TODO", "Todo", "todo" }, "MiniHipatternsTodo"),
+      note = hi_words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
+      -- Highlight hex color string (#aabbcc) with that color as a background
+      hex_color = hipatterns.gen_highlighter.hex_color(),
+    },
+  }
+end)
 
 -- mini.indentscope -> Visualize and work with indent scope.
 later(function() require("mini.indentscope").setup() end)

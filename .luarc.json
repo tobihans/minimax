@@ -3,7 +3,8 @@
     "diagnostics.globals": [
         "Snacks",
         "MiniIcons",
-        "MiniKeymap"
+        "MiniKeymap",
+        "MiniExtra"
     ],
     "diagnostics.disable": [
         "different-requires"

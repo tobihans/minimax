@@ -9,6 +9,7 @@ return {
     if config.root_dir and lsp.has_vue(config.root_dir) then
       table.insert(config.settings.vtsls.tsserver.globalPlugins, {
         name = "@vue/typescript-plugin",
+        -- FIXME: This is wrong now, since I no longer use Mason.nvim
         location = vim.fn.expand "$MASON/packages/vue-language-server/node_modules/@vue/language-server",
         languages = { "vue" },
         configNamespace = "typescript",

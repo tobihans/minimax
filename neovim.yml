@@ -14,3 +14,5 @@ globals:
     any: true
   MiniKeymap:
     any: true
+  MiniExtra:
+    any: true
