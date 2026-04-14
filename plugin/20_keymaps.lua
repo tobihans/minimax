@@ -10,8 +10,14 @@ local imap = function(lhs, rhs, desc, opts) map("i", lhs, rhs, vim.tbl_extend("f
 local tmap = function(lhs, rhs, desc, opts) map("t", lhs, rhs, vim.tbl_extend("force", { desc = desc }, opts or {})) end
 
 Config.leader_groups = {
-  { "<Leader>b", group = " Buffers" },
-  { "<Leader>s", group = "󰛔 Search/Replace" },
+  { "<Leader>f", group = " Find" },
+  { "<Leader>g", group = " Git" },
+  { "<Leader>l", group = " Language", icon = "" },
+  { "<Leader>s", group = " Search/Replace" },
+  { "<Leader>S", group = " Session" },
+  { "<Leader>t", group = " Terminal" },
+  { "<Leader>u", group = " UX", icon = "󰘵" },
+  { "<Leader>x", group = " List", icon = "" },
 }
 local nmap_leader = function(suffix, rhs, desc, opts) nmap("<Leader>" .. suffix, rhs, desc, opts) end
 local xmap_leader = function(suffix, rhs, desc, opts) xmap("<Leader>" .. suffix, rhs, desc, opts) end
@@ -261,6 +267,25 @@ nmap_leader("gs", function() require("gitsigns").stage_hunk() end, "Stage/Unstag
 vmap("<Leader>gs", function() require("gitsigns").stage_hunk { vim.fn.line ".", vim.fn.line "v" } end, "Stage Git hunk")
 nmap_leader("gS", function() require("gitsigns").stage_buffer() end, "Stage Git buffer")
 nmap_leader("gd", function() require("gitsigns").diffthis() end, "View Git diff")
+
+-- Plugin: Grug-far ==========================================================
+nmap_leader("ss", function() require("grug-far").open {} end, "Grug")
+nmap_leader(
+  "sf",
+  function() require("grug-far").open { prefills = { paths = vim.fn.expand "%" } } end,
+  "Grug (current file)"
+)
+nmap_leader(
+  "sc",
+  function() require("grug-far").open { prefills = { search = vim.fn.expand "<cword>" } } end,
+  "Grug (current word)"
+)
+vmap("<Leader>ss", function() require("grug-far").with_visual_selection {} end, "Grug")
+vmap(
+  "<Leader>sf",
+  function() require("grug-far").with_visual_selection { prefills = { paths = vim.fn.expand "%" } } end,
+  "Grug (current file)"
+)
 
 -- Plugin: Neo-tree ===========================================================
 nmap_leader("e", "<Cmd>Neotree toggle<CR>", "Toggle Explorer")

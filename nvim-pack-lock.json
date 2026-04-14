@@ -30,6 +30,10 @@
       "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
       "src": "gh:lewis6991/gitsigns.nvim"
     },
+    "grug-far.nvim": {
+      "rev": "21604255d0e8f9968322f61f2b6c09e5efe1285a",
+      "src": "gh:MagicDuck/grug-far.nvim"
+    },
     "guess-indent.nvim": {
       "rev": "84a4987ff36798c2fc1169cbaff67960aed9776f",
       "src": "gh:NMAC427/guess-indent.nvim"
@@ -39,7 +43,7 @@
       "src": "gh:webhooked/kanso.nvim"
     },
     "mini.nvim": {
-      "rev": "69b7433355664cf76898eb86a12a019f39bd86d1",
+      "rev": "c67822c53e8e282fe863343e88aa0a8ca3534059",
       "src": "gh:nvim-mini/mini.nvim"
     },
     "neo-tree.nvim": {

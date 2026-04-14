@@ -199,6 +199,8 @@ end)
 later(function()
   add { "gh:folke/which-key.nvim" }
   require("which-key").setup { preset = "modern" }
+  require("which-key").add(Config.leader_groups)
+  require("which-key").add(Config.localleader_groups)
 end)
 -- Session ====================================================================
 later(function()
