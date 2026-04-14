@@ -21,6 +21,7 @@ Config.leader_groups = {
 }
 local nmap_leader = function(suffix, rhs, desc, opts) nmap("<Leader>" .. suffix, rhs, desc, opts) end
 local xmap_leader = function(suffix, rhs, desc, opts) xmap("<Leader>" .. suffix, rhs, desc, opts) end
+local vmap_leader = function(suffix, rhs, desc, opts) vmap("<Leader>" .. suffix, rhs, desc, opts) end
 
 Config.localleader_groups = {}
 local nmap_localleader = function(suffix, rhs, desc, opts) nmap("<LocalLeader>" .. suffix, rhs, desc, opts) end
@@ -280,9 +281,9 @@ nmap_leader(
   function() require("grug-far").open { prefills = { search = vim.fn.expand "<cword>" } } end,
   "Grug (current word)"
 )
-vmap("<Leader>ss", function() require("grug-far").with_visual_selection {} end, "Grug")
-vmap(
-  "<Leader>sf",
+vmap_leader("ss", function() require("grug-far").with_visual_selection {} end, "Grug")
+vmap_leader(
+  "sf",
   function() require("grug-far").with_visual_selection { prefills = { paths = vim.fn.expand "%" } } end,
   "Grug (current file)"
 )
