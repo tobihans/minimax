@@ -59,7 +59,11 @@ later(function()
 end)
 
 -- mini.bracketed -> Go forward/backward with square brackets.
-later(function() require("mini.bracketed").setup() end)
+later(function()
+  require("mini.bracketed").setup {
+    treesitter = { suffix = "" },
+  }
+end)
 
 -- mini.bufremove -> Remove buffers. Opened files occupy space in tabline and buffer picker.
 later(function() require("mini.bufremove").setup() end)

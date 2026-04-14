@@ -30,6 +30,7 @@ Config.now(function()
     },
     input = { enabled = true },
     picker = {
+      ui_select = true,
       sources = {
         gh_issue = {},
         gh_pr = {},
