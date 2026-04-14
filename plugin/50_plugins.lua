@@ -44,7 +44,7 @@ now_if_args(function()
 end)
 
 -- Language servers ===========================================================
--- FIXME: This seems not working for now. or maybe because tools are missing.
+-- FIXME: This seems not working for now.
 now_if_args(function()
   add { "gh:neovim/nvim-lspconfig" }
 
@@ -280,6 +280,18 @@ later(function()
   add {
     "gh:tpope/vim-rails",
     "gh:b0o/schemastore.nvim", -- TODO: Configure in LSPs
+  }
+end)
+-- Search & Replace =================================================================
+later(function()
+  add { "gh:MagicDuck/grug-far.nvim" }
+  require("grug-far").setup {
+    transient = true,
+    engines = {
+      astgrep = {
+        path = "ast-grep",
+      },
+    },
   }
 end)
 -- Datatabase supoort ===============================================================
