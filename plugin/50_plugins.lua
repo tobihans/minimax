@@ -61,6 +61,7 @@ now_if_args(function()
     "pyrefly",
     "ruby_lsp",
     "rust_analyzer",
+    "tailwindcss",
     "tinymist",
     "vtsls",
   }

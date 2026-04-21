@@ -39,7 +39,7 @@ Config.now(function()
     quickfile = { enabled = true },
     rename = {},
     scratch = { enabled = true },
-    statuscolumn = {},
+    statuscolumn = { folds = { open = true, git_hl = true } },
     styles = {
       input = { title_pos = "left", relative = "cursor", row = -3, col = 0, b = { completion = true } },
     },
