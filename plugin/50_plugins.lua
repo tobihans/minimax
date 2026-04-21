@@ -12,6 +12,7 @@ now_if_args(function()
     "gh:nvim-treesitter/nvim-treesitter-textobjects",
   }
 
+  require("nvim-treesitter").setup(require "config.treesitter")
   require("treesitter-context").setup {
     enable = true,
     max_lines = 5,
