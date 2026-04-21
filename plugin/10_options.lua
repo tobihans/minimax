@@ -200,6 +200,15 @@ local diagnostic_opts = {
     severity = { min = "ERROR", max = "ERROR" },
   },
   update_in_insert = false,
+  severity_sort = true,
+  float = {
+    source = "if_many",
+    header = "",
+    prefix = "",
+  },
+  jump = {
+    on_jump = function(_, bufnr) vim.diagnostic.open_float { bufnr = bufnr, scope = "cursor", focus = false } end,
+  },
 }
 -- Use `later()` to avoid sourcing `vim.diagnostic` on startup
 Config.later(function() vim.diagnostic.config(diagnostic_opts) end)
