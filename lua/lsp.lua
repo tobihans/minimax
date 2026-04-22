@@ -2,6 +2,7 @@ local M = {}
 
 function M.has_vue(root)
   local files = vim.fs.find(
+    ---@diagnostic disable-next-line: unused-local
     function(name, _path) return name:match ".*%.vue$" end,
     { limit = 1, type = "file", path = root }
   )
