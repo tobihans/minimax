@@ -11,22 +11,14 @@ function M.new_file()
   end)
 end
 
-function M.quick()
-  vim.ui.select(require "utilities.quick", {
-    prompt = "󱘆 Quick Actions 󱘆",
-    format_item = function(item) return ("%s %s"):format(item.icon, item.desc) end,
-  }, function(item)
-    if item then pcall(item.fn) end
-  end)
-end
-
 function M.worktrees()
   vim.system({ "mise", "x", "--", "wt", "list", "--format", "json" }, { text = true, timeout = 5000 }, function(job)
     if job.code ~= 0 then return end
     local worktrees = vim.json.decode(job.stdout)
     print(vim.inspect(worktrees))
 
-    vim.ui.select(require "utilities.quick", {
+    -- FIXME: Properly format worktree items
+    vim.ui.select(worktrees, {
       prompt = "󱘆 Quick Actions 󱘆",
       format_item = function(item) return ("%s %s"):format(item.icon, item.desc) end,
     }, function(item)

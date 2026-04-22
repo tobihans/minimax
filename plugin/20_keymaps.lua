@@ -70,7 +70,6 @@ nmap_leader("xq", "<Cmd>copen<CR>", "Quickfix List")
 nmap_leader("xl", "<Cmd>lopen<CR>", "Location List")
 
 -- LocalLeader ================================================================
-nmap_localleader(";", require("pickers").quick, "Quick Actions")
 nmap_localleader(".", function() Snacks.scratch() end, "Toggle Scratch Buffer")
 nmap_localleader("S", function() Snacks.scratch.select() end, "Select Scratch Buffer")
 
