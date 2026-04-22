@@ -12,7 +12,6 @@ now_if_args(function()
     "gh:nvim-treesitter/nvim-treesitter-textobjects",
   }
 
-  require("nvim-treesitter").setup(require "config.treesitter")
   require("treesitter-context").setup {
     enable = true,
     max_lines = 5,
@@ -45,7 +44,6 @@ now_if_args(function()
 end)
 
 -- Language servers ===========================================================
--- FIXME: This seems not working for now.
 now_if_args(function()
   add { "gh:neovim/nvim-lspconfig" }
 

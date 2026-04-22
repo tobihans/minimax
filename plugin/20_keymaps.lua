@@ -312,3 +312,48 @@ nmap(">b", function() require("buffer").move(vim.v.count1) end, "Move buffer tab
 nmap("<b", function() require("buffer").move(-vim.v.count1) end, "Move buffer tab left")
 nmap_leader("c", function() require("buffer").close() end, "Close buffer")
 nmap_leader("C", function() require("buffer").close(0, true) end, "Force close buffer")
+-- Plugin: Treesitter textobjects =================================================
+local xo = { "x", "o" }
+local nxo = { "n", "x", "o" }
+local textobj_select = function(query)
+  return function() require("nvim-treesitter-textobjects.select").select_textobject(query, "textobjects") end
+end
+local textobj_move = function(method, query)
+  return function() require("nvim-treesitter-textobjects.move")[method](query, "textobjects") end
+end
+local textobj_swap = function(method, query)
+  return function() require("nvim-treesitter-textobjects.swap")[method](query) end
+end
+
+map(xo, "ak", textobj_select "@block.outer", { desc = "around block" })
+map(xo, "ik", textobj_select "@block.inner", { desc = "inside block" })
+map(xo, "ac", textobj_select "@class.outer", { desc = "around class" })
+map(xo, "ic", textobj_select "@class.inner", { desc = "inside class" })
+map(xo, "a?", textobj_select "@conditional.outer", { desc = "around conditional" })
+map(xo, "i?", textobj_select "@conditional.inner", { desc = "inside conditional" })
+map(xo, "af", textobj_select "@function.outer", { desc = "around function" })
+map(xo, "if", textobj_select "@function.inner", { desc = "inside function" })
+map(xo, "ao", textobj_select "@loop.outer", { desc = "around loop" })
+map(xo, "io", textobj_select "@loop.inner", { desc = "inside loop" })
+map(xo, "aa", textobj_select "@parameter.outer", { desc = "around argument" })
+map(xo, "ia", textobj_select "@parameter.inner", { desc = "inside argument" })
+
+map(nxo, "]k", textobj_move("goto_next_start", "@block.outer"), { desc = "Next block start" })
+map(nxo, "]f", textobj_move("goto_next_start", "@function.outer"), { desc = "Next function start" })
+map(nxo, "]a", textobj_move("goto_next_start", "@parameter.inner"), { desc = "Next argument start" })
+map(nxo, "]K", textobj_move("goto_next_end", "@block.outer"), { desc = "Next block end" })
+map(nxo, "]F", textobj_move("goto_next_end", "@function.outer"), { desc = "Next function end" })
+map(nxo, "]A", textobj_move("goto_next_end", "@parameter.inner"), { desc = "Next argument end" })
+map(nxo, "[k", textobj_move("goto_previous_start", "@block.outer"), { desc = "Previous block start" })
+map(nxo, "[f", textobj_move("goto_previous_start", "@function.outer"), { desc = "Previous function start" })
+map(nxo, "[a", textobj_move("goto_previous_start", "@parameter.inner"), { desc = "Previous argument start" })
+map(nxo, "[K", textobj_move("goto_previous_end", "@block.outer"), { desc = "Previous block end" })
+map(nxo, "[F", textobj_move("goto_previous_end", "@function.outer"), { desc = "Previous function end" })
+map(nxo, "[A", textobj_move("goto_previous_end", "@parameter.inner"), { desc = "Previous argument end" })
+
+nmap(">K", textobj_swap("swap_next", "@block.outer"), "Swap next block")
+nmap(">F", textobj_swap("swap_next", "@function.outer"), "Swap next function")
+nmap(">A", textobj_swap("swap_next", "@parameter.inner"), "Swap next argument")
+nmap("<K", textobj_swap("swap_previous", "@block.outer"), "Swap previous block")
+nmap("<F", textobj_swap("swap_previous", "@function.outer"), "Swap previous function")
+nmap("<A", textobj_swap("swap_previous", "@parameter.inner"), "Swap previous argument")
