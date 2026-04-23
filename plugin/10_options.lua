@@ -110,10 +110,11 @@ vim.opt.whichwrap:append "<,>,h,l"
 vim.o.errorbells = false
 vim.o.visualbell = false
 vim.o.cursorlineopt = "screenline,number"
+vim.o.diffopt = "internal,filler,closeoff,indent-heuristic,algorithm:histogram,inline:char,context:3,linematch:60"
 
--- Special UI symbols. More is set via 'mini.basics' later.
-vim.o.fillchars = "eob: ,fold: ,diff:╱"
-vim.o.listchars = "eol:↲,tab: ,trail:•,nbsp:␣,extends:»,precedes:«"
+-- Special UI symbols.
+vim.o.fillchars = "eob: ,fold: ,foldsep: ,foldopen:▼,foldclose:▶,diff:╱,vert:│,msgsep:‾,"
+vim.o.listchars = "eol:↲,tab:▸ ,trail:•,nbsp:␣,extends:›,precedes:‹"
 
 -- Folding. Defaults to indent. Treesitter and LSP used based on availability.
 vim.o.foldenable = true
