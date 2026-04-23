@@ -1,6 +1,12 @@
 local add = vim.pack.add
 local now, now_if_args, later = Config.now, Config.now_if_args, Config.later
 
+-- Builtins ===================================================================
+later(function()
+  vim.cmd.packadd "nvim.difftool"
+  vim.cmd.packadd "nvim.undotree"
+end)
+
 -- Tree-sitter ================================================================
 now_if_args(function()
   Config.on_packchanged("nvim-treesitter", { "update" }, function() vim.cmd "TSUpdate" end, ":TSUpdate")
@@ -187,6 +193,8 @@ now(function()
         all = { ui = { bg_gutter = "none" } },
       },
     },
+    -- selene: allow(unused_variable)
+    --- @diagnostic disable-next-line: unused-local]]
     overrides = function(colors)
       return {
         NormalFloat = { bg = "none" },
@@ -195,7 +203,7 @@ now(function()
       }
     end,
   }
-  vim.cmd.colorscheme "kanagawa"
+  vim.cmd.colorscheme "kanagawa-wave"
 end)
 
 -- Keymaps XP =================================================================
