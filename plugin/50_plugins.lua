@@ -71,12 +71,57 @@ now_if_args(function()
     "vtsls",
   }
 
+  local gr = vim.api.nvim_create_augroup("code-action-sign", { clear = true })
+  vim.fn.sign_define("CodeActionSign", { text = "⬥", texthl = "Constant" })
+
   Config.new_autocmd("LspAttach", nil, function(ev)
+    local bufnr = ev.buf
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     -- Folding
     if client and client:supports_method "textDocument/foldingRange" then
       local win = vim.api.nvim_get_current_win()
       vim.wo[win][0].foldmethod, vim.wo[win][0].foldexpr = "expr", "v:lua.vim.lsp.foldexpr()"
+    end
+    -- Code action sign: place sign when code actions are available on line.
+    if client and client:supports_method "textDocument/codeAction" then
+      -- NOTE: guard to avoid setting up autocmd many times.
+      local clients = vim.lsp.get_clients { bufnr = bufnr, method = "textDocument/codeAction" }
+      if #clients > 1 then return end
+
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        buffer = bufnr,
+        group = gr,
+        callback = function()
+          local params = vim.lsp.util.make_range_params(0, "utf-16")
+          local lnum = vim.fn.line "." - 1
+          ---@diagnostic disable-next-line: inject-field
+          params.context = { diagnostics = vim.diagnostic.get(bufnr, { lnum = lnum }) }
+
+          vim.fn.sign_unplace("LspCodeActionSign", { buffer = bufnr })
+          vim.lsp.buf_request(bufnr, "textDocument/codeAction", params, function(err, result, ctx, _)
+            if err or ctx.bufnr ~= bufnr or not vim.api.nvim_buf_is_loaded(bufnr) then return end
+            if result and not vim.tbl_isempty(result) then
+              local success, cursor_pos = pcall(vim.api.nvim_win_get_cursor, 0)
+              -- stylua: ignore
+              if success and cursor_pos then vim.fn.sign_place( 0, "LspCodeActionSign", "CodeActionSign", bufnr, { lnum = cursor_pos[1], priority = 10 }) end
+            end
+          end)
+        end,
+      })
+    end
+  end)
+
+  Config.new_autocmd("LspDetach", nil, function(ev)
+    local bufnr = ev.buf
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    -- Code action sign: remove when no lsp with codeAction is attached.
+    if client and client:supports_method "textDocument/codeAction" then
+      -- NOTE: guard to avoid many attempts.
+      local clients = vim.lsp.get_clients { bufnr = bufnr, method = "textDocument/codeAction" }
+      if #clients > 1 then return end
+
+      vim.fn.sign_unplace("LspCodeActionSign", { buffer = bufnr })
+      vim.api.nvim_clear_autocmds { group = gr, buffer = bufnr }
     end
   end)
 end)
