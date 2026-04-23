@@ -313,7 +313,7 @@ later(function()
     "gh:lewis6991/gitsigns.nvim",
   }
 
-  local git_sign = "▎"
+  local git_sign = "┃"
   require("gitsigns").setup {
     signs = {
       add = { text = git_sign },
