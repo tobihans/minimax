@@ -174,25 +174,28 @@ end)
 -- User Interface =============================================================
 now(function()
   add {
-    "gh:webhooked/kanso.nvim",
+    "gh:rebelot/kanagawa.nvim",
     "gh:nvim-lua/plenary.nvim",
     "gh:MunifTanjim/nui.nvim",
     "gh:folke/noice.nvim",
   }
 
   require("noice").setup(require "config.noice")
-  require("kanso").setup {
-    background = {
-      dark = "mist",
-      light = "pearl",
+  require("kanagawa").setup {
+    colors = {
+      theme = {
+        all = { ui = { bg_gutter = "none" } },
+      },
     },
-    overrides = function(_colors)
+    overrides = function(colors)
       return {
-        WinSeparator = { link = "FloatBorder" },
+        NormalFloat = { bg = "none" },
+        FloatBorder = { bg = "none" },
+        FloatTitle = { bg = "none" },
       }
     end,
   }
-  vim.cmd "color kanso"
+  vim.cmd.colorscheme "kanagawa"
 end)
 
 -- Keymaps XP =================================================================
