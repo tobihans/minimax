@@ -1,5 +1,10 @@
 # Minimax
 
+> [!IMPORTANT]
+> This is no longer maintained. I've already merged the changes in my [dotfiles](https://github.com/tobihans/dotfiles). See latest changes there.
+
+---
+
 > [!WARNING]
 > This is a personal WIP project. Expect breaking changes and rough edges.
 > This repo will eventually be merged into my [dotfiles](https://github.com/tobihans/dotfiles) and archived.
